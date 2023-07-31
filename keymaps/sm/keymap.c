@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "quantum.h"
 #include "features/sentence_case.h"
 #include "features/achordion.h"
 
