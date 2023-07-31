@@ -6,7 +6,7 @@
 /* #include "config_common.h" */
 
 #define TAPPING_TERM 180
-#define TAPPING_TERM_PER_KEY
+/* #define TAPPING_TERM_PER_KEY */
 #define PERMISSIVE_HOLD
 #define TAPPING_TOGGLE 2
 #define TAPPING_FORCE_HOLD_PER_KEY
