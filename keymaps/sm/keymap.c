@@ -13,7 +13,7 @@ enum klein_keymap_layers {
 
 /* Customization */
 enum custom_keycodes {
-    SM_LOCK = SAFE_RANGE,
+    SM_LOCK = USER00,
     QK_APPR,
     QK_LGTM,
     CTL_RHT,

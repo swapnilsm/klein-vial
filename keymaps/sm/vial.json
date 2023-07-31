@@ -2,6 +2,20 @@
     "name": "klein",
     "vendorId": "0x4659",
     "productId": "0x0009",
+  "customKeycodes": [
+	  {"name": "SM_LOCK",
+	   "title": "Viewport pan",
+	   "shortName": "B_VPAN"
+	  },
+	  {"name": "Dolly",
+	   "title": "Dolly zoom",
+	   "shortname": "B_DOLLY"
+	  },
+	  {"name": "Undo",
+	   "title": "",
+	   "shortName": "B_UNDO"
+	  }
+  ],
     "lighting": {
       "extends": "qmk_rgblight"
     },

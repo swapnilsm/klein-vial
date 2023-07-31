@@ -5,6 +5,12 @@
 
 /* #include "config_common.h" */
 
+#define TAPPING_TERM 180
+#define TAPPING_TERM_PER_KEY
+#define PERMISSIVE_HOLD
+#define TAPPING_TOGGLE 2
+#define TAPPING_FORCE_HOLD_PER_KEY
+
 #define I2C_DRIVER I2CD1
 #define VIAL_KEYBOARD_UID {0x56, 0x69, 0x6F, 0xB8, 0xC7, 0x64, 0x31, 0x5F}
 #define SERIAL_PIO_USE_PIO1
