@@ -14,7 +14,7 @@ enum klein_keymap_layers {
 
 /* Customization */
 enum custom_keycodes {
-    SM_LOCK = USER00,
+    SM_LOCK = QK_USER,
     QK_APPR,
     QK_LGTM,
     CTL_RHT,
@@ -271,6 +271,13 @@ bool achordion_chord(uint16_t tap_hold_keycode,
   // Exceptionally consider the following chords as holds
   switch (tap_hold_keycode) {
     case HYP_SPC:
+      return true;
+  }
+
+  // Exceptionally consider following rows key presses as holds
+  switch (tap_hold_record->event.key.row) {
+    case 3:
+    case 7:
       return true;
   }
 
