@@ -15,11 +15,7 @@ enum klein_keymap_layers {
 /* Customization */
 enum custom_keycodes {
     SM_LOCK = QK_USER,
-    QK_APPR,
-    QK_LGTM,
-    CTL_RHT,
-    CTL_LFT,
-    SM_EMAIL
+    CW_TOGG,
 };
 
 // Left-hand home row mods
@@ -38,9 +34,6 @@ enum custom_keycodes {
 #define L3_COMM LT(3, KC_COMM)
 
 #define HYP_SPC HYPR_T(KC_SPC)
-
-int bufferWPM[OLED_DISPLAY_WIDTH];
-int currentIndex = 0;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
@@ -143,101 +136,16 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
-#ifdef OLED_ENABLE
-// oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-//     return OLED_ROTATION_180;
-// }
-
-bool oled_task_kb(void) {
-    if (!oled_task_user()) {
-        return false;
-    }
-    if(currentIndex>=OLED_DISPLAY_WIDTH){
-        currentIndex = 0;
-    }
-    bufferWPM[currentIndex++] = get_current_wpm();
-//     static const char PROGMEM klein_logo[] = {
-//         // 'zcubet', 128x64px
-//       0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-//         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,254,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,224, 60,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128, 96,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128, 96, 24, 12,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,128,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-//         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,120,  7,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,192,120, 14,  3,  1,  0,  0,  0,  0,  0,  0,  0,  0,192, 32, 16,  8,  4,  6,  2,  3,  1,  1,  1,  0,  0,  0,  1,  1,  1,  3,  3, 14,248,128,  0,  0,  0,  0,
-//         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  4,  4, 12,  8,  8,  8,  8,  8,  8,  8, 24, 16, 16,252,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,240, 24,  4,  2,  2,  2,  2,130,130,130,130,130,130,130,130,132,132, 68, 76,120,  0,  0,  0,  0,  0,224, 60,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,224, 30,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 63,224,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,192, 60,  7,  0,  0,  0,  0,
-//         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 31,240,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3, 13, 25, 17, 33, 33, 65, 64, 64,128,128,128,128,128,128,128,128,128,128,128,128, 64, 64,  0,  0,127,192,128,128,128,128,128,128,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0, 63, 96, 64,128,128,128,128,128,128,  0,  0,128,  0,  0,  0,  0,  0,  1,  1,  2,  6,  4,  4, 12,  8,  8,  8,  8, 12,  4,  6,  2,  3,  1,  0,  0,  0,  0,  0,  0,  0,
-//         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 15, 24,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-//         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-//         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-//     };
-
-//     if (is_keyboard_master()) {
-//         oled_write_raw_P(klein_logo, sizeof(klein_logo));
-//     } else {
-//         oled_write_raw_P(klein_logo, sizeof(klein_logo));
-//     }
-    oled_set_cursor(0, 0);                            // sets cursor to (row, column) using charactar spacing (5 rows on 128x32 screen, anything more will overflow back to the top)
-    oled_write_P(PSTR("Layer: "), false);
-    switch (get_highest_layer(layer_state)) {
-            case L_BASE:
-                oled_write_P(PSTR("BASE\n"), false);
-                break;
-            case L_NAV:
-                oled_write_P(PSTR("NAV\n"), false);
-                break;
-            case L_NUM:
-                oled_write_P(PSTR("NUM\n"), false);
-                break;
-            case L_MEDIA:
-                oled_write_P(PSTR("MEDIA\n"), false);
-                break;
-            default:
-                // Or use the write_ln shortcut over adding '\n' to the end of your string
-                oled_write_ln_P(PSTR("Undefined"), false);
-        } // edit the string to change wwhat shows up, edit %03d to change how many digits show up
-    for(int x=0;x<currentIndex;x++){
-        int currWPM = bufferWPM[x];
-        for(int y=64;y>((32*(currWPM+1))/200);y--){
-            oled_write_pixel(x,y,true);
-        }
-    }
-    return false;
-}
-
-#endif
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_achordion(keycode, record)) { return false; }
   if (!process_sentence_case(keycode, record)) { return false; }
+
   switch (keycode) {
-    case SM_LOCK:
+    case CW_TOGG:
       if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_LGUI("q")));
+        caps_word_on();
       }
-      break;
-    case QK_APPR:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LGUI("f") "Quick Approve\n" SS_DELAY(50) "\e\n");
-      }
-      break;
-    case QK_LGTM:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LGUI("f") "Quick LGTM\n" SS_DELAY(50) "\e\n");
-      }
-      break;
-    case CTL_LFT:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)));
-      }
-      break;
-    case CTL_RHT:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)));
-      }
-      break;
-    case SM_EMAIL:
-      if (record->event.pressed) {
-        SEND_STRING("swapnilsm@gmail.com");
-      }
-      break;
-  }
+    }
   return true;
 };
 
