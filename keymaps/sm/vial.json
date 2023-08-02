@@ -3,9 +3,9 @@
     "vendorId": "0x4659",
     "productId": "0x0009",
   "customKeycodes": [
-	  {"name": "CW_TOGG",
+	  {"name": "SM_CWTG",
 	   "title": "Enable Caps Word",
-	   "shortName": "CW_TOGG"
+	   "shortName": "SM_CWTG"
 	  },
 	  {"name": "Undo",
 	   "title": "",

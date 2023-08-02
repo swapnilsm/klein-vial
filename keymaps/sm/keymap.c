@@ -15,7 +15,7 @@ enum klein_keymap_layers {
 /* Customization */
 enum custom_keycodes {
     SM_LOCK = QK_USER,
-    CW_TOGG,
+    SM_CWTG,
 };
 
 // Left-hand home row mods
@@ -141,7 +141,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_sentence_case(keycode, record)) { return false; }
 
   switch (keycode) {
-    case CW_TOGG:
+    case SM_CWTG:
       if (record->event.pressed) {
         caps_word_on();
       }
